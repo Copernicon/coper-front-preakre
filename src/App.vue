@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen justify-between bg-coper bg-no-repeat bg-black bg-cover bg-center">
+  <div class="flex flex-col h-screen justify-between bg-info bg-no-repeat bg-black bg-cover bg-center">
     <Navbar></Navbar>
     <RouterView></RouterView>
     <Footer></Footer>
