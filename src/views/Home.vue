@@ -3,10 +3,17 @@
         <!-- <div class="text-center">
             <h1 class="mt-4 text-3xl font-bold tracking-tight text-primary sm:text-5xl font-coperHeader">Wybierz rodzaj preakredytacji</h1>
             <p class="mt-6 text-base leading-7 text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <div class="mt-10 flex items-center justify-center gap-x-6">
-                <AkreItem name="Akre zwykłe" description="Opis opcji akre zwykłej" price="69"></AkreItem>
-                <AkreItem name="Akre premium" description="Opis opcji akre premium" price="6969"></AkreItem>
-                <AkreItem name="Bez akre" description="Opis kupowania itemków" price="69"></AkreItem>
+            <div v-for="item in data" :key="item.id" class="mt-10 flex items-center justify-center gap-x-6">
+                <AkreItem 
+                v-if="(item.slug === 'blind-bird') 
+                        || (item.slug === 'early-bird') 
+                        || (item.slug === 'premium')" 
+                        :name="item.name" 
+                        :description="item.description" 
+                        :price="item.price" 
+                        :disabled="item.active"
+                        v-bind:class = "(!item.active)?'':'bg-gray-500'">
+                    </AkreItem>
             </div>
         </div> -->
         <div class="text-center w-full">
@@ -37,12 +44,12 @@
                             <input type="radio" name="radio-10" class="radio checked:bg-primary mr-3" checked />
                             <span class="label-text">13-18</span> 
                         </label>
-                        <label class="label cursor-pointer">
-                            <input type="radio" name="radio-10" class="radio checked:bg-primary mr-3" checked />
-                            <span class="label-text">7-13</span> 
-                        </label>
-                        <ShopItem name="smyczka" description="opis smyczki" price="69"></ShopItem>
-                        <ShopItem name="informator" description="opis informatora" price="69"></ShopItem>
+                        <ShopItem v-for="item in data" 
+                                    :key="item.id" 
+                                    :name="item.name" 
+                                    :description="item.description" 
+                                    :price="item.price">
+                        </ShopItem>
                     </div>
                 </form>
             </div>
@@ -60,4 +67,9 @@
 import AkreItem from '@/components/AkreItem.vue'
 import ShopItem from '../components/ShopItem.vue';
 
+import { getShopItems } from '@/assets/js/shopItemsHandler.js';
+
+const { data, error, loading, fetchData } = getShopItems();
+
+fetchData();
 </script>
